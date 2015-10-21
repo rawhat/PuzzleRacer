@@ -16,7 +16,7 @@ public class ResetOnFall : MonoBehaviour {
         trackController = GameObject.FindObjectOfType<TrackController>();
     }
 
-    
+    /*
     void OnCollisionStay(Collision carCollision)
     {
         if (carCollision.gameObject.CompareTag("TrackPiece"))
@@ -25,7 +25,7 @@ public class ResetOnFall : MonoBehaviour {
             currentTrackPiece = carCollision.gameObject;
             trackController.SendMessage("SetCurrentTrackPiece", currentTrackPiece);
         }
-    }
+    }*/
 
     /*
     void OnTriggerEnter(Collider boundaryBox)

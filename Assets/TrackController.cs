@@ -29,9 +29,10 @@ public class TrackController : MonoBehaviour {
         }
     }
 
-    void SetCurrentTrackPiece(GameObject trackPiece)
+    public void SetCurrentTrackPiece(GameObject trackPiece)
     {
         currentTrackPiece = trackPiece;
+        currentTrackPieceStatus = currentTrackPiece.GetComponent<TrackPieceStatus>();
     }
 
     void SetNextTrackPiece(GameObject trackPiece)
@@ -47,5 +48,10 @@ public class TrackController : MonoBehaviour {
         GameObject next = Instantiate(nextTrackPiece, pieceSpawnLocation, Quaternion.identity) as GameObject;
         currentTrackPieceStatus = next.GetComponent<TrackPieceStatus>();
         currentTrackPiece = next;
+    }
+
+    public Vector3 GetTrackPieceSpawn()
+    {
+        return currentTrackPieceStatus.spawnLocation.position;
     }
 }

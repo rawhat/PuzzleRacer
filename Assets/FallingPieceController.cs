@@ -6,9 +6,15 @@ using DG.Tweening;
 public class FallingPieceController : MonoBehaviour {
 
     public float fallDelay;
-    public float fallSpeed;
+    public float timeToCrossScreen;
 
-    public RawImage[] trackPieces;
+    public float spawnToDestroyDistance;
+
+    public GameObject newPieceTemplate;
+    public Transform spawnLocation;
+    public GameObject parentPanel;
+
+    public Texture[] trackPieces;
 
     private float fallTimer;
 
@@ -23,12 +29,23 @@ public class FallingPieceController : MonoBehaviour {
 
         if (fallTimer <= 0f)
         {
-
+            AddPiece();
+            fallTimer = fallDelay;
         }
     }
 
     void AddPiece()
     {
+        GameObject newPiece = Instantiate(newPieceTemplate) as GameObject;
+        newPiece.transform.SetParent(parentPanel.transform, false);
+        RawImage pieceRawImage = newPiece.GetComponent<RawImage>();
+        pieceRawImage.texture = trackPieces[0];
+        pieceRawImage.DOFade(0f, 0f).OnComplete(()=>pieceRawImage.DOFade(1f, .25f));
+
+        RectTransform pieceRectTransform = newPiece.GetComponent<RectTransform>();
+        pieceRectTransform.anchoredPosition = new Vector2(-300f, 0f);
+        pieceRectTransform.sizeDelta = new Vector2(40f, 80f);
+        pieceRectTransform.DOAnchorPosX(spawnToDestroyDistance, timeToCrossScreen).OnComplete(()=>Destroy(newPiece));
 
     }
 }

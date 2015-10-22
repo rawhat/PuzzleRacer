@@ -8,20 +8,12 @@ public class TrackController : MonoBehaviour {
     private GameObject currentTrackPiece;
     private GameObject nextTrackPiece;
     private TrackPieceStatus currentTrackPieceStatus;
-    private TrackPieceStatus nextTrackPieceStatus;
 
     void Start()
     {
         currentTrackPiece = initialTrackPiece;
         currentTrackPieceStatus = currentTrackPiece.GetComponent<TrackPieceStatus>();
-        Debug.Log("tag: " + currentTrackPiece.tag);
     }
-
-    /*
-    void ResetTrack()
-    {
-        Instantiate(currentTrackPiece);
-    }*/
 
     void Update()
     {
@@ -45,7 +37,6 @@ public class TrackController : MonoBehaviour {
     void SetNextTrackPiece(GameObject trackPiece)
     {
         nextTrackPiece = trackPiece;
-        nextTrackPieceStatus = nextTrackPiece.GetComponent<TrackPieceStatus>();
     }
 
     void SpawnNextTrackPiece()

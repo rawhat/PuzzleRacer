@@ -5,12 +5,13 @@ public class KillPlaneBehave : MonoBehaviour {
 
 	public GameObject killTarget; 
 	public GameObject startPiece;
-	[SerializeField] private Vector3 checkpointPos;
+	private Vector3 checkpointPos;
 	private Vector3 colliderSize;
 
 	// Use this for initialization
 	void Start () {
 		checkpointPos = killTarget.transform.position;
+		transform.position = new Vector3(killTarget.transform.position.x, killTarget.transform.position.y - 5, killTarget.transform.position.z);
 	}
 	
 	// Update is called once per frame
@@ -30,6 +31,7 @@ public class KillPlaneBehave : MonoBehaviour {
 	{
 		GameObject.Instantiate(startPiece, checkpointPos, Quaternion.identity);
 		killTarget.transform.position = new Vector3(checkpointPos.x, checkpointPos.y + 3, checkpointPos.z);
+		killTarget.transform.rotation = Quaternion.identity;
 
 	}
 
@@ -41,5 +43,14 @@ public class KillPlaneBehave : MonoBehaviour {
 	void FollowKillTarget()
 	{
 		transform.position = new Vector3(killTarget.transform.position.x, transform.position.y, killTarget.transform.position.z);
+	}
+
+	public Vector3 GetCheckpointPos()
+	{
+		return checkpointPos;
+	}
+	public void SetCheckpointPos(float zPos)
+	{
+		checkpointPos = new Vector3(checkpointPos.x, checkpointPos.y, zPos);
 	}
 }

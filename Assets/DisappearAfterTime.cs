@@ -20,10 +20,13 @@ public class DisappearAfterTime : MonoBehaviour {
     // default (1, 1, 1)
     private Vector3 shakeStrength;
 
+    private TrackPieceStatus thisStatus;
+
     void Start()
     {
         currentLifetime = deathTimer;
-        shakeStrength = new Vector3(.25f, 0f, .25f);
+        thisStatus = GetComponent<TrackPieceStatus>();
+        shakeStrength = new Vector3(.25f, .1f, .25f);
     }
 
     void Update()
@@ -31,9 +34,9 @@ public class DisappearAfterTime : MonoBehaviour {
         currentLifetime -= Time.deltaTime;
         if (currentLifetime <= 0f)
         {
-            Debug.Log("Dying");
             this.DOKill();
             // first lower track piece, then destroy it
+            thisStatus.isFalling = true;
             this.transform.DOMoveY(fallLength, fallTimer).OnComplete(() => Destroy(gameObject));
         }
         else if (currentLifetime <= shakeThreshold)

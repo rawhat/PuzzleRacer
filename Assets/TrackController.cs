@@ -7,10 +7,14 @@ public class TrackController : MonoBehaviour {
 
     private GameObject currentTrackPiece;
     private GameObject nextTrackPiece;
+    private TrackPieceStatus currentTrackPieceStatus;
+    private TrackPieceStatus nextTrackPieceStatus;
 
     void Start()
     {
         currentTrackPiece = initialTrackPiece;
+        currentTrackPieceStatus = currentTrackPiece.GetComponent<TrackPieceStatus>();
+        Debug.Log("tag: " + currentTrackPiece.tag);
     }
 
     /*
@@ -21,7 +25,13 @@ public class TrackController : MonoBehaviour {
 
     void Update()
     {
-        if (currentTrackPiece.transform.position.y < 0f)
+        /*
+        if (currentTrackPieceStatus.isFalling)
+        {
+            SpawnNextTrackPiece();
+        }*/
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
             SpawnNextTrackPiece();
         }
@@ -34,12 +44,17 @@ public class TrackController : MonoBehaviour {
 
     void SetNextTrackPiece(GameObject trackPiece)
     {
-        Debug.Log("setting next track piece");
         nextTrackPiece = trackPiece;
+        nextTrackPieceStatus = nextTrackPiece.GetComponent<TrackPieceStatus>();
     }
 
     void SpawnNextTrackPiece()
     {
-        Instantiate(nextTrackPiece);
+        Vector3 pieceSpawnLocation = currentTrackPieceStatus.spawnLocation.position;
+        pieceSpawnLocation.z += nextTrackPiece.transform.localScale.z / 2f;
+
+        GameObject next = Instantiate(nextTrackPiece, pieceSpawnLocation, Quaternion.identity) as GameObject;
+        currentTrackPieceStatus = next.GetComponent<TrackPieceStatus>();
+        currentTrackPiece = next;
     }
 }

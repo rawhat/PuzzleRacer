@@ -3,7 +3,8 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-    public GameObject trackPiece;
+    // make this a dictionary later with reference ID for falling track pieces
+    public GameObject[] trackPieceArray;
 
     private GameObject currentTrackPiece;
     private TrackController trackController;
@@ -15,9 +16,9 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            trackController.SendMessage("SetNextTrackPiece", trackPiece);
+            trackController.SendMessage("SetNextTrackPiece", trackPieceArray[0]);
         }
     }
 }

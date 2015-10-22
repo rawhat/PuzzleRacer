@@ -40,6 +40,11 @@ public class GameController : MonoBehaviour {
             playerInputReceived = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
         IncrementDistanceTraveled();
         if (Input.GetKeyDown(KeyCode.Q))
         {

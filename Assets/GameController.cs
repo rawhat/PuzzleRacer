@@ -7,6 +7,10 @@ public class GameController : MonoBehaviour {
     public GameObject[] trackPieceArray;
     public GameObject player;
     private GameObject currentTrackPiece;
+
+    private bool playerInputReceived;
+    DisappearAfterTime disappearScript;
+
     private TrackController trackController;
     private GameObject killPlane;
     [SerializeField] private float totalDistanceTraveled;
@@ -16,6 +20,10 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
+        currentTrackPiece = GameObject.FindGameObjectWithTag("TrackPiece");
+        disappearScript = currentTrackPiece.GetComponent<DisappearAfterTime>();
+        disappearScript.enabled = false;
+        playerInputReceived = false;
         totalDistanceTraveled = 0;
         startingPosition = player.transform.position.z;
         checkpointIncrement = 50f;
@@ -26,6 +34,12 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
+        if (Input.anyKeyDown && !playerInputReceived)
+        {
+            disappearScript.enabled = true;
+            playerInputReceived = true;
+        }
+
         IncrementDistanceTraveled();
         if (Input.GetKeyDown(KeyCode.Q))
         {

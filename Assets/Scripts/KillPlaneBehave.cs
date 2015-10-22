@@ -7,18 +7,19 @@ public class KillPlaneBehave : MonoBehaviour {
 	public GameObject startPiece;
 	private Vector3 checkpointPos;
 	private Vector3 colliderSize;
-	private TrackController tc;
+	public TrackController tc;
 
 	// Use this for initialization
 	void Start () {
-		tc = GameObject.Find("TrackController").GetComponent<TrackController>();
+		//tc = GameObject.Find("TrackController").GetComponent<TrackController>();
 		//checkpointPos = killTarget.transform.position;
-		checkpointPos = tc.GetTrackPieceSpawn();
 		transform.position = new Vector3(killTarget.transform.position.x, killTarget.transform.position.y - 5, killTarget.transform.position.z);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if(checkpointPos == null)
+            checkpointPos = tc.GetTrackPieceSpawn();
 		FollowKillTarget();
 		if((killTarget.transform.position.y) <= (transform.position.y + 1))
 			ResetPlayer();
@@ -32,6 +33,9 @@ public class KillPlaneBehave : MonoBehaviour {
 
 	void ResetPlayer()
 	{
+        foreach(GameObject piece in GameObject.FindGameObjectsWithTag("TrackPiece")){
+            Destroy(piece);
+        }
 		GameObject newTrack = (GameObject) GameObject.Instantiate(startPiece, checkpointPos, Quaternion.identity);
 		tc.SetCurrentTrackPiece(newTrack);
 		killTarget.transform.position = new Vector3(checkpointPos.x, checkpointPos.y + 3, checkpointPos.z);

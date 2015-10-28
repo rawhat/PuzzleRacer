@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour {
         IncrementDistanceTraveled();
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            trackController.SendMessage("SetNextTrackPiece", trackPieceArray[0]);
+            trackController.SendMessage("SetNextTrackPiece", trackPieceArray[Random.Range(0, trackPieceArray.Length)]);
         }
     }
 

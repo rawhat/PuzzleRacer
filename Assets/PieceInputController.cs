@@ -15,12 +15,15 @@ public class PieceInputController : MonoBehaviour {
     private GameObject lockedPiece;
     private Vector3 screenPoint;
     private Vector3 offset;
+    private PuzzleController puzzle;
+
 
     private TrackController tc;
 
     void Start()
     {
         tc = GameObject.Find("TrackController").GetComponent<TrackController>();
+        puzzle = GameObject.Find("PuzzlePanel").GetComponent<PuzzleController>();
         pieceLocked = false;
         //lockLocation = lockedPosition.position;
 
@@ -123,6 +126,9 @@ public class PieceInputController : MonoBehaviour {
 
     void PlacePuzzlePiece(GameObject puzzlePiece)
     {
+        //puzzlePiece.GetComponent<RectTransform>().DOKill();
+        puzzle.AddPuzzlePiece();
+        //Destroy(puzzlePiece);
         Debug.Log("sending to puzzle");
     }
 }

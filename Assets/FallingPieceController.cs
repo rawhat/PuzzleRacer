@@ -37,6 +37,8 @@ public class FallingPieceController : MonoBehaviour {
     void AddPiece()
     {
         GameObject newPiece = Instantiate(newPieceTemplate) as GameObject;
+        PieceIdentifier id = newPiece.GetComponent<PieceIdentifier>();
+        id.pieceIdentifier = 0;
         newPiece.transform.SetParent(parentPanel.transform, false);
         RawImage pieceRawImage = newPiece.GetComponent<RawImage>();
         pieceRawImage.texture = trackPieces[0];

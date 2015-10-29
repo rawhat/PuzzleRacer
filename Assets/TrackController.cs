@@ -23,12 +23,12 @@ public class TrackController : MonoBehaviour {
         if (currentTrackPieceStatus.isFalling)
         {
             SpawnNextTrackPiece();
-        }*/
-
+        }
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
             SpawnNextTrackPiece();
-        }
+        } */
     }
 
     public void SetCurrentTrackPiece(GameObject trackPiece)

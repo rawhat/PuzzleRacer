@@ -121,7 +121,7 @@ public class PieceInputController : MonoBehaviour {
         PieceIdentifier id = puzzlePiece.GetComponent<PieceIdentifier>();
         tc.SetNextTrackPieceById(id.pieceIdentifier);
         tc.SpawnNextTrackPiece();
-        Destroy(puzzlePiece);
+        //Destroy(puzzlePiece);
     }
 
     void PlacePuzzlePiece(GameObject puzzlePiece)

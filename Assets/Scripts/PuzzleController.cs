@@ -89,6 +89,7 @@ public class PuzzleController : MonoBehaviour {
 			//newPiece.transform.parent = container1.transform;
 			//newPiece.transform.position = container3.transform.position;
 			//Destroy(puzzlePiece);
+			DetermineIfMatch();
 			return;
 
 		}
@@ -114,6 +115,30 @@ public class PuzzleController : MonoBehaviour {
 		newPiece.name = pName;
 			//newPiece.transform.parent = container1.transform;
 		newPiece.transform.position = container.transform.position;
+	}
+
+	private void DetermineIfMatch()
+	{
+		GameObject pieceOne = container1.transform.GetChild (0).gameObject;
+		GameObject pieceTwo = container2.transform.GetChild (0).gameObject;
+		GameObject pieceThree = container3.transform.GetChild (0).gameObject;
+
+		PieceIdentifier pOne = pieceOne.GetComponent<PieceIdentifier>();
+		PieceIdentifier pTwo = pieceTwo.GetComponent<PieceIdentifier>();
+		PieceIdentifier pThree = pieceThree.GetComponent<PieceIdentifier>();
+
+		if(pOne.pieceIdentifier == pTwo.pieceIdentifier && pOne.pieceIdentifier == pThree.pieceIdentifier)
+		{
+			Debug.Log("PowerUp goes here");
+		}
+		else if (pOne.pieceColor == pTwo.pieceColor && pOne.pieceColor == pThree.pieceColor)
+		{
+			Debug.Log("You have failed to match 3");
+		}
+
+		Destroy(pieceOne);
+		Destroy(pieceTwo);
+		Destroy(pieceThree);
 	}
 
 }

@@ -5,5 +5,5 @@ public class TrackPieceStatus : MonoBehaviour {
 
     public bool isFalling;
     public Transform spawnLocation;
-
+    public Transform placementLocation;
 }

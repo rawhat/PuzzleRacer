@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
     // make this a dictionary later with reference ID for falling track pieces
     public GameObject[] trackPieceArray;
     public GameObject player;
+    public Text distanceText;
     private GameObject currentTrackPiece;
 
     private bool playerInputReceived;
@@ -59,6 +61,7 @@ public class GameController : MonoBehaviour {
         totalDistanceTraveled = player.transform.position.z - startingPosition;
         if(totalDistanceTraveled >= nextCheckpoint)
             IncrementCheckpoint();
+        distanceText.text = ((int) totalDistanceTraveled).ToString() + " m";
     }
 
     void IncrementCheckpoint()

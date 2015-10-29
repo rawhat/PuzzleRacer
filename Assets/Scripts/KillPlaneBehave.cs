@@ -39,10 +39,7 @@ public class KillPlaneBehave : MonoBehaviour {
 		GameObject newTrack = (GameObject) GameObject.Instantiate(startPiece, checkpointPos, Quaternion.identity);
 		tc.SetCurrentTrackPiece(newTrack);
 		killTarget.transform.position = new Vector3(checkpointPos.x, checkpointPos.y + 3, checkpointPos.z);
-		killTarget.GetComponent<Rigidbody>().isKinematic = true;
 		killTarget.transform.rotation = Quaternion.identity;
-		killTarget.GetComponent<Rigidbody>().isKinematic = false;
-
 
 	}
 

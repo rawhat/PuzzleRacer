@@ -50,7 +50,9 @@ public class TrackController : MonoBehaviour {
     public void SpawnNextTrackPiece()
     {
         Vector3 pieceSpawnLocation = currentTrackPieceStatus.spawnLocation.position;
-        pieceSpawnLocation.z += nextTrackPiece.transform.localScale.z / 2f;
+
+        Vector3 meshSize = nextTrackPiece.GetComponent<Renderer>().bounds.size;
+        pieceSpawnLocation.z += meshSize.z / 2f;
 
         GameObject next = Instantiate(nextTrackPiece, pieceSpawnLocation, Quaternion.identity) as GameObject;
         currentTrackPieceStatus = next.GetComponent<TrackPieceStatus>();

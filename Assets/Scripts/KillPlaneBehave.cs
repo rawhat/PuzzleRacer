@@ -8,12 +8,13 @@ public class KillPlaneBehave : MonoBehaviour {
 	private Vector3 checkpointPos;
 	private Vector3 colliderSize;
 	public TrackController tc;
+	public float yOffset = 7;
 
 	// Use this for initialization
 	void Start () {
 		//tc = GameObject.Find("TrackController").GetComponent<TrackController>();
 		//checkpointPos = killTarget.transform.position;
-		transform.position = new Vector3(killTarget.transform.position.x, killTarget.transform.position.y - 5, killTarget.transform.position.z);
+		transform.position = new Vector3(killTarget.transform.position.x, killTarget.transform.position.y - yOffset, killTarget.transform.position.z);
 	}
 	
 	// Update is called once per frame

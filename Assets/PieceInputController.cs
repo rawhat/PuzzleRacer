@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class PieceInputController : MonoBehaviour {
 
@@ -15,8 +16,11 @@ public class PieceInputController : MonoBehaviour {
     private Vector3 screenPoint;
     private Vector3 offset;
 
+    private TrackController tc;
+
     void Start()
     {
+        tc = GameObject.Find("TrackController").GetComponent<TrackController>();
         pieceLocked = false;
         //lockLocation = lockedPosition.position;
 
@@ -24,6 +28,7 @@ public class PieceInputController : MonoBehaviour {
         //lockLocation.x -= 40f * .0025f;
     }
 
+    /*
     public void LockPuzzlePiece()
     {
         if (!pieceLocked)
@@ -73,5 +78,51 @@ public class PieceInputController : MonoBehaviour {
     public void EndDrag()
     {
         lockedPiece.transform.DOMove(new Vector3(lockedPosition.position.x - 40f * .0025f, lockedPosition.position.y, lockedPosition.position.z), .25f);
+    }*/
+
+    public void PanelMouseEvent(BaseEventData bed)
+    {
+        PointerEventData ped = (PointerEventData)bed;
+        GameObject[] puzzlePieces = GameObject.FindGameObjectsWithTag("PuzzlePiece");
+
+        GameObject pieceToLock = null;
+
+        foreach (GameObject piece in puzzlePieces)
+        {
+            float dist = (Vector3.Distance(piece.transform.position, lockedPosition.position));
+            if (dist < lockPieceSensitivity)
+            {
+                pieceToLock = piece;
+                break;
+            }
+        }
+
+        if (pieceToLock != null)
+        {
+            switch (ped.pointerId)
+            {
+                case -1:
+                    PlaceTrackPiece(pieceToLock);
+                    break;
+                case -2:
+                    PlacePuzzlePiece(pieceToLock);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    void PlaceTrackPiece(GameObject puzzlePiece)
+    {
+        PieceIdentifier id = puzzlePiece.GetComponent<PieceIdentifier>();
+        tc.SetNextTrackPieceById(id.pieceIdentifier);
+        tc.SpawnNextTrackPiece();
+        Destroy(puzzlePiece);
+    }
+
+    void PlacePuzzlePiece(GameObject puzzlePiece)
+    {
+        Debug.Log("sending to puzzle");
     }
 }

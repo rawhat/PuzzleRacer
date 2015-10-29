@@ -8,9 +8,11 @@ public class TrackController : MonoBehaviour {
     private GameObject currentTrackPiece;
     private GameObject nextTrackPiece;
     private TrackPieceStatus currentTrackPieceStatus;
+    private GameController gameController;
 
     void Start()
     {
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
         currentTrackPiece = initialTrackPiece;
         currentTrackPieceStatus = currentTrackPiece.GetComponent<TrackPieceStatus>();
     }
@@ -35,12 +37,17 @@ public class TrackController : MonoBehaviour {
         currentTrackPieceStatus = currentTrackPiece.GetComponent<TrackPieceStatus>();
     }
 
-    void SetNextTrackPiece(GameObject trackPiece)
+    public void SetNextTrackPiece(GameObject trackPiece)
     {
         nextTrackPiece = trackPiece;
     }
 
-    void SpawnNextTrackPiece()
+    public void SetNextTrackPieceById(int id)
+    {
+        SetNextTrackPiece(gameController.trackPieceArray[id]);
+    }
+
+    public void SpawnNextTrackPiece()
     {
         Vector3 pieceSpawnLocation = currentTrackPieceStatus.spawnLocation.position;
         pieceSpawnLocation.z += nextTrackPiece.transform.localScale.z / 2f;

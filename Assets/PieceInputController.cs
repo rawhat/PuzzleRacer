@@ -127,7 +127,8 @@ public class PieceInputController : MonoBehaviour {
     void PlacePuzzlePiece(GameObject puzzlePiece)
     {
         //puzzlePiece.GetComponent<RectTransform>().DOKill();
-        puzzle.AddPuzzlePiece();
+        PieceIdentifier id = puzzlePiece.GetComponent<PieceIdentifier>();
+        puzzle.AddPuzzlePiece(id.pieceIdentifier, id.trackTexture);
         //Destroy(puzzlePiece);
         Debug.Log("sending to puzzle");
     }

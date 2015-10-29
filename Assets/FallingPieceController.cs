@@ -42,6 +42,7 @@ public class FallingPieceController : MonoBehaviour {
         newPiece.transform.SetParent(parentPanel.transform, false);
         RawImage pieceRawImage = newPiece.GetComponent<RawImage>();
         pieceRawImage.texture = trackPieces[0];
+        id.trackTexture = trackPieces[0];
         pieceRawImage.DOFade(0f, 0f).OnComplete(()=>pieceRawImage.DOFade(1f, .25f));
 
         RectTransform pieceRectTransform = newPiece.GetComponent<RectTransform>();

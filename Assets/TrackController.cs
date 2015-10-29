@@ -44,7 +44,10 @@ public class TrackController : MonoBehaviour {
 
     public void SetNextTrackPieceById(int id)
     {
-        SetNextTrackPiece(gameController.trackPieceArray[id]);
+        //SetNextTrackPiece(gameController.trackPieceArray[id]);
+
+        // making random for testing
+        SetNextTrackPiece(gameController.trackPieceArray[Random.Range(0, gameController.trackPieceArray.Length)]);
     }
 
     public void SpawnNextTrackPiece()

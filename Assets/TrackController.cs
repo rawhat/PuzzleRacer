@@ -24,11 +24,18 @@ public class TrackController : MonoBehaviour {
         {
             SpawnNextTrackPiece();
         }
-        
+        */
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SetNextTrackPiece(currentTrackPiece);
+        }
+
+        // for testing purposes
         if (Input.GetKeyDown(KeyCode.E))
         {
             SpawnNextTrackPiece();
-        } */
+        } 
     }
 
     public void SetCurrentTrackPiece(GameObject trackPiece)
@@ -60,9 +67,11 @@ public class TrackController : MonoBehaviour {
 
         pieceSpawnLocation.y -= (placementLocation.y - nextTrackPiece.transform.position.y);
 
-        GameObject next = Instantiate(nextTrackPiece, pieceSpawnLocation, Quaternion.identity) as GameObject;
-        currentTrackPieceStatus = next.GetComponent<TrackPieceStatus>();
-        currentTrackPiece = next;
+        GameObject next = Instantiate(nextTrackPiece, pieceSpawnLocation, currentTrackPieceStatus.spawnLocation.rotation) as GameObject;
+        SetCurrentTrackPiece(next);
+
+        //currentTrackPieceStatus = next.GetComponent<TrackPieceStatus>();
+        //currentTrackPiece = next;
     }
 
     public Vector3 GetTrackPieceSpawn()

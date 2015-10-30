@@ -7,7 +7,6 @@ public class BlockController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public static GameObject puzzlePiece;
     public float snapBackTimer;
-    public RectTransform parentPlaceholder;
 
     private RectTransform pieceRectTransform;
 
@@ -46,7 +45,7 @@ public class BlockController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         puzzlePiece = gameObject;
         startPos = gameObject.transform.position;
-        gameObject.transform.parent = parentPlaceholder;
+        gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -57,6 +56,7 @@ public class BlockController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnEndDrag(PointerEventData eventData)
     {
         gameObject.transform.DOMove(startPos, snapBackTimer);
+        gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)

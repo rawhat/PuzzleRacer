@@ -10,7 +10,6 @@ public class PuzzleController : MonoBehaviour {
 	public GameObject pieceTemplate;
 	private FallingPieceController pController;
 
-
 	// Use this for initialization
 	void Start () {
 		container1 = transform.GetChild (0).gameObject;
@@ -141,4 +140,9 @@ public class PuzzleController : MonoBehaviour {
 		Destroy(pieceThree);
 	}
 
+    // placeholder
+    void AcceptPiece(GameObject piece)
+    {
+        Debug.Log("piece: " + piece.name);
+    }
 }

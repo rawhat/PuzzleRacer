@@ -42,7 +42,9 @@ public class KillPlaneBehave : MonoBehaviour {
 		killTarget.transform.position = new Vector3(checkpointPos.x, checkpointPos.y + 3, checkpointPos.z);
 		//killTarget.GetComponent<Rigidbody>().isKinematic = true;
 		killTarget.transform.rotation = Quaternion.identity;
-        killTarget.GetComponent<Rigidbody>().velocity = new Vector3();
+        Rigidbody killTargetRigidbody = killTarget.GetComponent<Rigidbody>();
+        killTargetRigidbody.velocity = Vector3.zero;
+        killTargetRigidbody.angularVelocity = Vector3.zero;
 		//killTarget.GetComponent<Rigidbody>().isKinematic = false;
 
 

@@ -20,6 +20,14 @@ public class GameController : MonoBehaviour {
     private float checkpointIncrement;
     [SerializeField] private float nextCheckpoint;
 
+    private Vector3 initialPosition;
+    public GameObject initialTrackPiece;
+
+    void Awake()
+    {
+        initialPosition = player.transform.position;
+    }
+
     void Start()
     {
         currentTrackPiece = GameObject.FindGameObjectWithTag("TrackPiece");
@@ -44,7 +52,7 @@ public class GameController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Application.LoadLevel(Application.loadedLevel);
+            ResetGame();
         }
 
         IncrementDistanceTraveled();
@@ -68,5 +76,23 @@ public class GameController : MonoBehaviour {
     {
         killPlane.GetComponent<KillPlaneBehave>().SetCheckpointPos(nextCheckpoint);
         nextCheckpoint += checkpointIncrement;
+    }
+
+    void ResetGame()
+    {
+        foreach (GameObject trackPiece in GameObject.FindGameObjectsWithTag("TrackPiece"))
+        {
+            Destroy(trackPiece);
+        }
+        playerInputReceived = false;
+        totalDistanceTraveled = 0f;
+        Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
+        playerRigidbody.velocity = Vector3.zero;
+        playerRigidbody.angularVelocity = Vector3.zero;
+        player.transform.position = initialPosition;
+        currentTrackPiece = Instantiate(initialTrackPiece) as GameObject;
+        trackController.SetCurrentTrackPiece(currentTrackPiece);
+        disappearScript = currentTrackPiece.GetComponent<DisappearAfterTime>();
+        disappearScript.enabled = false;
     }
 }

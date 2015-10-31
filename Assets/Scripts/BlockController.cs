@@ -15,6 +15,9 @@ public class BlockController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private PuzzleController puzzleController;
 
+    private Vector3 screenPoint;
+    private Vector3 offset;
+
     void Start()
     {
         puzzleController = GameObject.FindObjectOfType<PuzzleController>();
@@ -45,12 +48,17 @@ public class BlockController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         puzzlePiece = gameObject;
         startPos = gameObject.transform.position;
+        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
         gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        gameObject.transform.position = Input.mousePosition;
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+        transform.position = curPosition;
+
     }
 
     public void OnEndDrag(PointerEventData eventData)

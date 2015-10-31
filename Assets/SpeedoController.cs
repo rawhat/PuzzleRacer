@@ -20,6 +20,6 @@ public class SpeedoController : MonoBehaviour {
 
 	void Update () {
         Vector3 rot = new Vector3(0f, 0f, maxRotation * (carRigidbody.velocity.magnitude / carController.MaxSpeed));
-        speedometer.rectTransform.rotation = Quaternion.Euler(rot);
+        speedometer.rectTransform.localRotation = Quaternion.Euler(rot);
 	}
 }
